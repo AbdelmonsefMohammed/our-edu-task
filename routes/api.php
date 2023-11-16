@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\Users\IndexController as UsersIndex;
+use App\Http\Controllers\API\Users\StoreController as UsersStore;
+use App\Http\Controllers\API\Transactions\StoreController as TransactionsStore;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/users', UsersIndex::class);
+Route::post('/users/store', UsersStore::class);
+
+Route::post('/transactions/store', TransactionsStore::class);
+

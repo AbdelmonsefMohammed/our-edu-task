@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', static function (Blueprint $table) : void {
-            $table->ulid('id')->primary();
-            $table->string('email')->unique();
-            $table->decimal('balance', 8, 2);
+        Schema::create('transactions', static function (Blueprint $table) : void {
+            $table->id();
+            $table->foreignUuid('user_id')->index()->constrained()->cascadeOnDelete();
+            $table->decimal('paidAmount', 8, 2);
             $table->string('currency');
-            $table->date('creationDate');
+            $table->string('statusCode');
+            $table->date('paymentDate');
+            $table->string('parentIdentification');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('transactions');
     }
 };
